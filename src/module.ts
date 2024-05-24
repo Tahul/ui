@@ -6,6 +6,7 @@ import createTemplates from './templates'
 import * as config from './runtime/ui.config'
 import type { DeepPartial, Strategy } from './runtime/types/utils'
 import installTailwind from './tailwind'
+import { join } from 'pathe'
 
 const _require = createRequire(import.meta.url)
 const defaultColors = _require('tailwindcss/colors.js')
@@ -81,6 +82,7 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.build.transpile.push('@popperjs/core', '@headlessui/vue')
 
     nuxt.options.alias['#ui'] = runtimeDir
+    nuxt.options.alias['#ui/*'] = join(runtimeDir, '*')
 
     if (!options.disableGlobalStyles) {
       nuxt.options.css.push(resolve(runtimeDir, 'ui.css'))
